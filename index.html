@@ -17,7 +17,7 @@
 
   <div class="container">
   	<div id="navbar">
-	    <button type="button" id="bar-btn" class="navbtn btn-info">Bar Chart</button>
+	    <button type="button" id="bar-btn" class="navbtn btn btn-info">Bar Chart</button>
 	    <button type="button" id="pie-btn" class="navbtn btn btn-info">Pie Chart</button>
 	    <button type="button" id="horizontal-bar-btn" class="navbtn btn btn-info">Horizontal Bar Chart</button>
 	    <button type="button" id="line-btn" class="navbtn btn btn-info">Line Chart</button>
@@ -36,7 +36,7 @@
     Chart.defaults.global.defaultFontColor = '#777';
 
     // bar chart
-    let myChart = new Chart(myChart, {
+    let myDisplayedChart = new Chart(myChart, {
       type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data:{
         labels:['Anger', 'Happiness', 'Sadness', 'Frustration', 'empathy'],
