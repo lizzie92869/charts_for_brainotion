@@ -11,33 +11,36 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <!-- Add css -->
   <link rel="stylesheet" type="text/css" href="application.css">
+  <!-- Add Jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
+
   <title>My Chart.js Chart</title>
 </head>
 <body>
 
   <div class="container">
-  	<div id="navbar">
-	    <button type="button" id="bar-btn" class="navbtn btn btn-info">Bar Chart</button>
-	    <button type="button" id="pie-btn" class="navbtn btn btn-info">Pie Chart</button>
-	    <button type="button" id="horizontal-bar-btn" class="navbtn btn btn-info">Horizontal Bar Chart</button>
-	    <button type="button" id="line-btn" class="navbtn btn btn-info">Line Chart</button>
-	    <button type="button" id="doughnut-btn" class="navbtn btn btn-info">Doughnut Chart</button>
-	    <button type="button" id="radar-btn" class="navbtn btn btn-info">Radar Chart</button>	
-	    <button type="button" id="polar-area-btn" class="navbtn btn btn-info">Polar Area Chart</button>	
-	</div>
-    <canvas id="myChart"></canvas>
+    <button type="button" id="bar-btn" class="navbtn btn btn-info">Bar Chart</button>
+      <button type="button" id="pie-btn" class="navbtn btn btn-info">Pie Chart</button>
+      <button type="button" id="horizontal-bar-btn" class="navbtn btn btn-info">Horizontal Bar Chart</button>
+      <button type="button" id="line-btn" class="navbtn btn btn-info">Line Chart</button>
+      <button type="button" id="doughnut-btn" class="navbtn btn btn-info">Doughnut Chart</button>
+      <button type="button" id="radar-btn" class="navbtn btn btn-info">Radar Chart</button> 
+      <button type="button" id="polar-area-btn" class="navbtn btn btn-info">Polar Area Chart</button> 
+  <canvas id="canvas"></canvas>
   </div>
 
   <script>
-    let myChart = document.getElementById('myChart').getContext('2d');
-    // Global Options
-    Chart.defaults.global.defaultFontFamily = 'Lato';
-    Chart.defaults.global.defaultFontSize = 18;
-    Chart.defaults.global.defaultFontColor = '#777';
 
-    // bar chart
-    let myDisplayedChart = new Chart(myChart, {
-      type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+  // default styling for the chart
+  Chart.defaults.global.defaultFontFamily = 'Lato';
+  Chart.defaults.global.defaultFontSize = 15;
+  Chart.defaults.global.defaultFontColor = '#777';
+
+
+
+  var config = {
+    type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data:{
         labels:['Anger', 'Happiness', 'Sadness', 'Frustration', 'empathy'],
         datasets:[{
@@ -91,7 +94,54 @@
           enabled:true
         }
       }
-    });
+    };
+
+
+  var myChart;
+
+  $("#bar-btn").click(function() {
+    change('bar');
+  });
+
+  $("#pie-btn").click(function() {
+    change('pie');
+  });
+
+  $("#horizontal-bar-btn").click(function() {
+    change('horizontalBar');
+  });
+
+  $("#line-btn").click(function() {
+    change('line');
+  });
+
+  $("#doughnut-btn").click(function() {
+    change('doughnut');
+  });
+
+  $("#radar-btn").click(function() {
+    change('radar');
+  });
+
+  $("#polar-area-btn").click(function() {
+    change('polarArea');
+  });
+
+
+  function change(newType) {
+    var ctx = document.getElementById("canvas").getContext("2d");
+
+    // Remove the old chart and all its event handles
+    if (myChart) {
+      myChart.destroy();
+    }
+
+    // Chart.js modifies the object you pass in. Pass a copy of the object so we can use the original object later
+    var temp = jQuery.extend(true, {}, config);
+    temp.type = newType;
+    myChart = new Chart(ctx, temp);
+  };
+
   </script>
 </body>
 </html>
