@@ -16,7 +16,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <!-- Jquery for date picker -->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
   <title>My Chart.js Chart</title>
 </head>
@@ -68,20 +68,50 @@
   </div>
 
   <!-- display of the charts -->
+
+  <!-- last evaluation -->
   <div class="center">
-  <div id="container-block">
-    <button type="button" id="bar-btn" class="navbtn btn btn-info">Bar Chart</button>
-      <button type="button" id="pie-btn" class="navbtn btn btn-info">Pie Chart</button>
+    <div id="container-block">
+    <h2 class="title-last">last evaluation</h2>
+      <button type="button" id="bar-btn" class="navbtn btn btn-info">Bar Chart</button>
       <button type="button" id="horizontal-bar-btn" class="navbtn btn btn-info">Horiz. Bar Chart</button>
-      <button type="button" id="line-btn" class="navbtn btn btn-info">Line Chart</button>
+      <button type="button" id="pie-btn" class="navbtn btn btn-info">Pie Chart</button> 
+      <!-- <button type="button" id="line-btn" class="navbtn btn btn-info">Line Chart</button> -->
       <button type="button" id="doughnut-btn" class="navbtn btn btn-info">Doughnut Chart</button>
       <button type="button" id="radar-btn" class="navbtn btn btn-info">Radar Chart</button> 
       <button type="button" id="polar-area-btn" class="navbtn btn btn-info">Polar Area Chart</button> 
-  <canvas id="canvas"></canvas>
-  </div>
+    <canvas id="canvas1"></canvas>
+    </div>
   </div>
 
+  <!-- last week evaluation -->
+    <div class="center">
+    <div id="container-block">
+    <h2 class="title-last">last week</h2>
+      <button type="button" id="bar-btn" class="navbtn btn btn-info">Bar Chart</button>
+      <button type="button" id="horizontal-bar-btn" class="navbtn btn btn-info">Horiz. Bar Chart</button>
+      <button type="button" id="line-btn" class="navbtn btn btn-info">Line Chart</button>
+    <canvas id="canvas2"></canvas>
+    </div>
+  </div>
 
+  <!-- last month evaluation -->
+  <div class="center">
+    <div id="container-block">
+    <h2 class="title-last">last month</h2>
+      <button type="button" id="line-btn" class="navbtn btn btn-info">Line Chart</button>
+    <canvas id="canvas3"></canvas>
+    </div>
+  </div>
+
+  <!-- last year evaluation -->
+  <div class="center">
+    <div id="container-block">
+    <h2 class="title-last">last year</h2>
+      <button type="button" id="line-btn" class="navbtn btn btn-info">Line Chart</button>
+    <canvas id="canvas4"></canvas>
+    </div>
+  </div>
 
   <script>
 
@@ -189,7 +219,7 @@
 
 
   function change(newType) {
-    var ctx = document.getElementById("canvas").getContext("2d");
+    var ctx = document.getElementById("canvas1").getContext("2d");
 
     // Remove the old chart and all its event handles
     if (myChart) {
