@@ -14,7 +14,9 @@
   <link rel="stylesheet" type="text/css" href="drop_menu.css">
   <!-- Add Jquery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  
+  <!-- Jquery for date picker -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
   <title>My Chart.js Chart</title>
 </head>
@@ -25,6 +27,11 @@
   <div class="center">
     <form id="form-block" method="POST" action="URL_OF_REST">
     <h2 class="form-input-heading">Enter a new evaluation</h2>
+
+    <div class="inline">
+      <div class="emotion-name">Date</div>
+      <input class="input-date" type="text" id="datepicker">
+    </div>
 
     <div class="inline">
       <div class="emotion-name">Anger</div>
@@ -52,7 +59,7 @@
 
     <div class="inline">
       <div class="emotion-name">Empathy</div>
-      <input class="input-score" type="text" required name="anger"> 
+      <input class="input-score" type="number" required name="anger"> 
       /100
     </div>
     
@@ -62,10 +69,10 @@
 
   <!-- display of the charts -->
   <div class="center">
-  <div class="container center">
+  <div id="container-block">
     <button type="button" id="bar-btn" class="navbtn btn btn-info">Bar Chart</button>
       <button type="button" id="pie-btn" class="navbtn btn btn-info">Pie Chart</button>
-      <button type="button" id="horizontal-bar-btn" class="navbtn btn btn-info">Horizontal Bar Chart</button>
+      <button type="button" id="horizontal-bar-btn" class="navbtn btn btn-info">Horiz. Bar Chart</button>
       <button type="button" id="line-btn" class="navbtn btn btn-info">Line Chart</button>
       <button type="button" id="doughnut-btn" class="navbtn btn btn-info">Doughnut Chart</button>
       <button type="button" id="radar-btn" class="navbtn btn btn-info">Radar Chart</button> 
@@ -73,7 +80,16 @@
   <canvas id="canvas"></canvas>
   </div>
   </div>
+
+
+
   <script>
+
+  // date picker from jquery
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+
 
   // default styling for the chart
   Chart.defaults.global.defaultFontFamily = 'Lato';
