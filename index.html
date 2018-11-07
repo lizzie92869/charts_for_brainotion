@@ -22,20 +22,47 @@
 
 
   <!-- form to input data -->
-  <form class="form-inpput" method="POST" action="URL_OF_REST">
-  <h2 class="form-input-heading">Enter a new evaluation:</h2>
+  <div class="center">
+    <form id="form-block" method="POST" action="URL_OF_REST">
+    <h2 class="form-input-heading">Enter a new evaluation</h2>
 
-  <div>Anger<input class="input-score" type="text" required name="anger"> /100</div>
-  <div>Happiness<input class="input-score" type="text" required name="anger"> /100</div>
-  <div>Sadness<input class="input-score" type="text" required name="anger"> /100</div>
-  <div>Frustration<input class="input-score" type="text" required name="anger"> /100</div>
-  <div>Empathy<input class="input-score" type="text" required name="anger"> /100</div>
-  
-  <button class="btn btn-primary btn-block" type="submit">Save</button>
-  </form>
+    <div class="inline">
+      <div class="emotion-name">Anger</div>
+      <input class="input-score" type="text" required name="anger"> 
+      /100
+    </div>
+
+    <div class="inline">
+      <div class="emotion-name">Happiness</div>
+      <input class="input-score" type="text" required name="anger"> 
+      /100
+    </div>
+
+    <div class="inline">
+      <div class="emotion-name">Sadness</div>
+      <input class="input-score" type="text" required name="anger"> 
+      /100
+    </div>
+
+    <div class="inline">
+      <div class="emotion-name">Frustration</div>
+      <input class="input-score" type="text" required name="anger"> 
+      /100
+    </div>
+
+    <div class="inline">
+      <div class="emotion-name">Empathy</div>
+      <input class="input-score" type="text" required name="anger"> 
+      /100
+    </div>
+    
+    <button class="save-btn btn btn-block" type="submit">Save</button>
+    </form>
+  </div>
 
   <!-- display of the charts -->
-  <div class="container">
+  <div class="center">
+  <div class="container center">
     <button type="button" id="bar-btn" class="navbtn btn btn-info">Bar Chart</button>
       <button type="button" id="pie-btn" class="navbtn btn btn-info">Pie Chart</button>
       <button type="button" id="horizontal-bar-btn" class="navbtn btn btn-info">Horizontal Bar Chart</button>
@@ -45,7 +72,7 @@
       <button type="button" id="polar-area-btn" class="navbtn btn btn-info">Polar Area Chart</button> 
   <canvas id="canvas"></canvas>
   </div>
-
+  </div>
   <script>
 
   // default styling for the chart
@@ -86,6 +113,7 @@
         }]
       },
       options:{
+        maintainAspectRatio: false,
         title:{
           display:true,
           text:'Range of emotions',
@@ -100,7 +128,7 @@
         },
         layout:{
           padding:{
-            left:50,
+            left:0,
             right:0,
             bottom:0,
             top:0

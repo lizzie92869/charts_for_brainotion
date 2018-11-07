@@ -13,6 +13,49 @@
 	margin-bottom: 2%;
 }
 
+.container {
+	width: 80%;
+}
+
+canvas {
+	max-height: 300px;
+}
+
+
+/*form*/
+.center {
+	margin: 0 auto;
+
+}
+
+.inline {
+	display: inline;
+}
+
 .input-score {
 	width: 30px;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
+#form-block {
+	width: 80%;
+	background-color: #3F5BCD;
+	color: white;
+	border-radius: 15px;
+	padding: 15px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.emotion-name {
+	margin-right: 15px;
+	margin-left: 15px;
+	display: inline;
+	color: #FFE900;
+}
+
+.save-btn {
+	margin-top: 20px;
+	background-color: #5bc0de
 }
