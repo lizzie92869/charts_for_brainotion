@@ -156,7 +156,7 @@
 
 
 
-  // function to get the date from the API for the config of the chart
+  // display the charts for the last evaluation
   function DisplayLastData(chart_type){
     fetch('/api/emotional_states')
     .then((res) => res.json())
@@ -250,6 +250,134 @@
       
   }
 
+  // get a date range
+
+  Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+  }
+
+  function getDates(startDate, stopDate) {
+      var dateArray = new Array();
+      var currentDate = startDate;
+      while (currentDate <= stopDate) {
+          dateArray.push(new Date (currentDate));
+          currentDate = currentDate.addDays(1);
+      }
+      return dateArray;
+  }
+
+
+
+  // Display the chart for last week
+  function DisplayLastWeekData(chart_type){
+    fetch('/api/emotional_states')
+    .then((res) => res.json())
+    .then((data) => {
+
+      //defining an array of all the dates of last week
+      
+      let d = new Date();
+      let lastWeekSameDay = new Date(d.setDate(d.getDate() - 7));
+      let todayDate = new Date();
+      let dateRange = getDates(lastWeekSameDay, todayDate)
+      //we can't keep the time as there wouldn't be any match in our db
+      let dateRangeTruncated = []
+      for (e of dateRange) {
+        dateRangeTruncated.push(e.toString().slice(0, 15));
+      }
+
+      
+      // finding the objects with those dates
+      let sessionsEvaluated = data.filter(function (el) {
+        let dateTruncated = new Date(el.date).toString().slice(0, 15)
+
+        return dateRangeTruncated.includes(dateTruncated) ;
+      })
+
+      debugger
+      let lastAngerScore = sessionEvaluated[0].anger_score
+      let lastHappinessScore = sessionEvaluated[0].happiness_score
+      let lastSadnessScore = sessionEvaluated[0].sadness_score
+      let lastFrustrationScore = sessionEvaluated[0].frustration_score
+      let lastEmpathyScore = sessionEvaluated[0].empathy_score
+
+      console.log(maxValueOfDate, lastAngerScore, lastHappinessScore, lastSadnessScore, lastFrustrationScore, lastEmpathyScore);
+
+          //config variable for the charts of last evaluation
+          var configChartLastEvaluation = {
+            type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+              data:{
+                labels:['Anger', 'Happiness', 'Sadness', 'Frustration', 'Empathy'],
+                datasets:[{
+                  label:'Emotion',
+                  data:[
+                    `${lastAngerScore}`,
+                    `${lastHappinessScore}`,
+                    `${lastSadnessScore}`,
+                    `${lastFrustrationScore}`,
+                    `${lastEmpathyScore}`
+                  ],
+
+                  //backgroundColor:'green',
+                  backgroundColor:[
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)',
+                    'rgba(255, 99, 132, 0.6)'
+                  ],
+                  borderWidth:1,
+                  borderColor:'#777',
+                  hoverBorderWidth:3,
+                  hoverBorderColor:'#000'
+                }]
+              },
+              options:{
+                maintainAspectRatio: false,
+                title:{
+                  display:true,
+                  text:'Range of emotions',
+                  fontSize:25
+                },
+                legend:{
+                  display:false,
+                  position:'right',
+                  labels:{
+                    fontColor:'#000'
+                  }
+                },
+                layout:{
+                  padding:{
+                    left:0,
+                    right:0,
+                    bottom:0,
+                    top:0
+                  }
+                },
+                tooltips:{
+                  enabled:true
+                }
+              }
+            };
+
+            var ctx = document.getElementById("canvas2").getContext("2d");
+
+            // Remove the old chart and all its event handles
+            if (myChart) {
+            myChart.destroy();
+            }
+
+            // Chart.js modifies the object you pass in. Pass a copy of the object so we can use the original object later
+            var temp = jQuery.extend(true, {}, configChartLastEvaluation);
+            myChart = new Chart(ctx, temp);   
+      });
+      
+  }
+
 
   var myChart;
 
@@ -276,6 +404,11 @@
   $("#polar-area-btn").click(function() {
     DisplayLastData('polarArea');
   });
+
+  $("#line-btn-week").click(function() {
+    DisplayLastWeekData();
+  });
+  
 
 
   </script>
