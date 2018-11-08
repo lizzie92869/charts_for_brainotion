@@ -75,10 +75,6 @@
     <h2 class="title-last">last evaluation</h2>
       <button type="button" id="bar-btn" class="navbtn btn btn-info">Bar Chart</button>
       <button type="button" id="horizontal-bar-btn" class="navbtn btn btn-info">Horiz. Bar Chart</button>
-      <button type="button" id="pie-btn" class="navbtn btn btn-info">Pie Chart</button> 
-      <button type="button" id="doughnut-btn" class="navbtn btn btn-info">Doughnut Chart</button>
-      <button type="button" id="radar-btn" class="navbtn btn btn-info">Radar Chart</button> 
-      <button type="button" id="polar-area-btn" class="navbtn btn btn-info">Polar Area Chart</button> 
     <canvas id="canvas1"></canvas>
     </div>
   </div>
@@ -277,7 +273,6 @@
     .then((data) => {
 
       //defining an array of all the dates of last week
-      
       let d = new Date();
       let lastWeekSameDay = new Date(d.setDate(d.getDate() - 7));
       let todayDate = new Date();
@@ -295,7 +290,7 @@
         return dateRangeTruncated.includes(dateTruncated) ;
       })
 
-      // debugger
+      debugger
 
       // let lastAngerScore = sessionEvaluated[0].anger_score
       // let lastHappinessScore = sessionEvaluated[0].happiness_score
@@ -304,63 +299,103 @@
       // let lastEmpathyScore = sessionEvaluated[0].empathy_score
 
       // console.log(maxValueOfDate, lastAngerScore, lastHappinessScore, lastSadnessScore, lastFrustrationScore, lastEmpathyScore);
+      let angerArray = [];
+      let happinessArray = [];
+      let sadnessArray = [];
+      let frustrationArray = [];
+      let empathyArray = [];
 
-
+      for(session of sessionsEvaluated){
+        angerArray.push(session.anger_score);
+        happinessArray.push(session.happiness_score);
+        sadnessArray.push(session.sadness_score);
+        frustrationArray.push(session.frustration_score);
+        empathyArray.push(session.empathy_score);
+      }
 
           //config variable for the charts of last week evaluations
           var configChartLastEvaluation = {
             type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
               data:{
                 labels: dateRangeTruncated,
-                datasets:[{
-                  label:'Emotion',
-                  data:[
-                    1,2,3,4,5,6
-                  ],
+                datasets:[
 
-                  //backgroundColor:'green',
-                  backgroundColor:[
-                    'rgba(255, 99, 132, 0.6)',
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
-                    'rgba(75, 192, 192, 0.6)',
-                    'rgba(153, 102, 255, 0.6)',
-                    'rgba(255, 159, 64, 0.6)',
-                    'rgba(255, 99, 132, 0.6)'
-                  ],
-                  borderWidth:1,
-                  borderColor:'#777',
-                  hoverBorderWidth:3,
-                  hoverBorderColor:'#000'
-                }]
+                {
+                  label:'Anger',
+                  borderColor: 'rgba(255, 99, 132, 0.6)',
+
+                  data:angerArray
+                },
+                {
+                  label:'Happiness',
+                  borderColor: "rgba(54, 162, 235, 0.6)",
+                  data:happinessArray
+                },
+                {
+                  label:'Sadness',
+                  borderColor: "rgba(255, 206, 86, 0.6)",
+                  data:sadnessArray
+                },
+                {
+                  label:'Frustration',
+                  borderColor: "rgba(75, 192, 192, 0.6)",
+                  data:frustrationArray
+                },
+                {
+                  label:'Empathy',
+                  borderColor: "rgba(153, 102, 255, 0.6)",
+                  data:empathyArray
+                },
+                ],
               },
-              options:{
+            options:{
                 maintainAspectRatio: false,
-                title:{
-                  display:true,
-                  text:'Range of emotions',
-                  fontSize:25
-                },
-                legend:{
-                  display:false,
-                  position:'right',
-                  labels:{
-                    fontColor:'#000'
-                  }
-                },
-                layout:{
-                  padding:{
-                    left:0,
-                    right:0,
-                    bottom:0,
-                    top:0
-                  }
-                },
-                tooltips:{
-                  enabled:true
-                }
-              }
+            }
             };
+
+              //     //backgroundColor:'green',
+              //     backgroundColor:[
+              //       'rgba(255, 99, 132, 0.6)',
+              //       'rgba(54, 162, 235, 0.6)',
+              //       'rgba(255, 206, 86, 0.6)',
+              //       'rgba(75, 192, 192, 0.6)',
+              //       'rgba(153, 102, 255, 0.6)',
+              //       'rgba(255, 159, 64, 0.6)',
+              //       'rgba(255, 99, 132, 0.6)'
+              //     ],
+              //     borderWidth:1,
+              //     borderColor:'#777',
+              //     hoverBorderWidth:3,
+              //     hoverBorderColor:'#000'
+              //   }]
+              // },
+              // options:{
+              //   maintainAspectRatio: false,
+              //   title:{
+              //     display:true,
+              //     text:'Range of emotions',
+              //     fontSize:25
+              //   },
+              //   legend:{
+              //     display:false,
+              //     position:'right',
+              //     labels:{
+              //       fontColor:'#000'
+              //     }
+              //   },
+              //   layout:{
+              //     padding:{
+              //       left:0,
+              //       right:0,
+              //       bottom:0,
+              //       top:0
+              //     }
+              //   },
+              //   tooltips:{
+              //     enabled:true
+              //   }
+              // }
+            
 
             var ctx = document.getElementById("canvas2").getContext("2d");
 
@@ -383,24 +418,8 @@
     DisplayLastData('bar');
   });
 
-  $("#pie-btn").click(function() {
-    DisplayLastData('pie');
-  });
-
   $("#horizontal-bar-btn").click(function() {
     DisplayLastData('horizontalBar');
-  });
-
-  $("#doughnut-btn").click(function() {
-    DisplayLastData('doughnut');
-  });
-
-  $("#radar-btn").click(function() {
-    DisplayLastData('radar');
-  });
-
-  $("#polar-area-btn").click(function() {
-    DisplayLastData('polarArea');
   });
 
   $("#line-btn-week").click(function() {
