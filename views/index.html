@@ -292,32 +292,30 @@
       // finding the objects with those dates
       let sessionsEvaluated = data.filter(function (el) {
         let dateTruncated = new Date(el.date).toString().slice(0, 15)
-
         return dateRangeTruncated.includes(dateTruncated) ;
       })
 
-      debugger
-      let lastAngerScore = sessionEvaluated[0].anger_score
-      let lastHappinessScore = sessionEvaluated[0].happiness_score
-      let lastSadnessScore = sessionEvaluated[0].sadness_score
-      let lastFrustrationScore = sessionEvaluated[0].frustration_score
-      let lastEmpathyScore = sessionEvaluated[0].empathy_score
+      // debugger
 
-      console.log(maxValueOfDate, lastAngerScore, lastHappinessScore, lastSadnessScore, lastFrustrationScore, lastEmpathyScore);
+      // let lastAngerScore = sessionEvaluated[0].anger_score
+      // let lastHappinessScore = sessionEvaluated[0].happiness_score
+      // let lastSadnessScore = sessionEvaluated[0].sadness_score
+      // let lastFrustrationScore = sessionEvaluated[0].frustration_score
+      // let lastEmpathyScore = sessionEvaluated[0].empathy_score
 
-          //config variable for the charts of last evaluation
+      // console.log(maxValueOfDate, lastAngerScore, lastHappinessScore, lastSadnessScore, lastFrustrationScore, lastEmpathyScore);
+
+
+
+          //config variable for the charts of last week evaluations
           var configChartLastEvaluation = {
             type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
               data:{
-                labels:['Anger', 'Happiness', 'Sadness', 'Frustration', 'Empathy'],
+                labels: dateRangeTruncated,
                 datasets:[{
                   label:'Emotion',
                   data:[
-                    `${lastAngerScore}`,
-                    `${lastHappinessScore}`,
-                    `${lastSadnessScore}`,
-                    `${lastFrustrationScore}`,
-                    `${lastEmpathyScore}`
+                    1,2,3,4,5,6
                   ],
 
                   //backgroundColor:'green',
