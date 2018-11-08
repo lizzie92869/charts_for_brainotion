@@ -267,14 +267,23 @@
 
 
   // Display the chart for last week
-  function DisplayLastWeekData(chart_type){
+  function DisplayLastWeekData(period){
     fetch('/api/emotional_states')
     .then((res) => res.json())
     .then((data) => {
 
       //defining an array of all the dates of last week
       let d = new Date();
-      let lastWeekSameDay = new Date(d.setDate(d.getDate() - 7));
+      let lastWeekSameDay;
+      if (period === "week") {
+        lastWeekSameDay = new Date(d.setDate(d.getDate() - 7));
+      };
+      if (period === "month") {
+        lastWeekSameDay = new Date(d.setDate(d.getDate() - 30));
+      };
+      if (period === "year") {
+        lastWeekSameDay = new Date(d.setDate(d.getDate() - 365));
+      };
       let todayDate = new Date();
       let dateRange = getDates(lastWeekSameDay, todayDate)
       //we can't keep the time as there wouldn't be any match in our db
@@ -290,15 +299,6 @@
         return dateRangeTruncated.includes(dateTruncated) ;
       })
 
-      debugger
-
-      // let lastAngerScore = sessionEvaluated[0].anger_score
-      // let lastHappinessScore = sessionEvaluated[0].happiness_score
-      // let lastSadnessScore = sessionEvaluated[0].sadness_score
-      // let lastFrustrationScore = sessionEvaluated[0].frustration_score
-      // let lastEmpathyScore = sessionEvaluated[0].empathy_score
-
-      // console.log(maxValueOfDate, lastAngerScore, lastHappinessScore, lastSadnessScore, lastFrustrationScore, lastEmpathyScore);
       let angerArray = [];
       let happinessArray = [];
       let sadnessArray = [];
@@ -352,52 +352,16 @@
                 maintainAspectRatio: false,
             }
             };
-
-              //     //backgroundColor:'green',
-              //     backgroundColor:[
-              //       'rgba(255, 99, 132, 0.6)',
-              //       'rgba(54, 162, 235, 0.6)',
-              //       'rgba(255, 206, 86, 0.6)',
-              //       'rgba(75, 192, 192, 0.6)',
-              //       'rgba(153, 102, 255, 0.6)',
-              //       'rgba(255, 159, 64, 0.6)',
-              //       'rgba(255, 99, 132, 0.6)'
-              //     ],
-              //     borderWidth:1,
-              //     borderColor:'#777',
-              //     hoverBorderWidth:3,
-              //     hoverBorderColor:'#000'
-              //   }]
-              // },
-              // options:{
-              //   maintainAspectRatio: false,
-              //   title:{
-              //     display:true,
-              //     text:'Range of emotions',
-              //     fontSize:25
-              //   },
-              //   legend:{
-              //     display:false,
-              //     position:'right',
-              //     labels:{
-              //       fontColor:'#000'
-              //     }
-              //   },
-              //   layout:{
-              //     padding:{
-              //       left:0,
-              //       right:0,
-              //       bottom:0,
-              //       top:0
-              //     }
-              //   },
-              //   tooltips:{
-              //     enabled:true
-              //   }
-              // }
             
-
+            if (period === "week") {
             var ctx = document.getElementById("canvas2").getContext("2d");
+            };
+            if  (period === "month") {
+            var ctx = document.getElementById("canvas3").getContext("2d");
+            };
+            if  (period === "year") {
+            var ctx = document.getElementById("canvas4").getContext("2d");
+            };
 
             // Remove the old chart and all its event handles
             if (myChart) {
@@ -423,7 +387,14 @@
   });
 
   $("#line-btn-week").click(function() {
-    DisplayLastWeekData();
+    DisplayLastWeekData("week");
+  });
+
+  $("#line-btn-month").click(function() {
+    DisplayLastWeekData("month");
+  });
+  $("#line-btn-year").click(function() {
+    DisplayLastWeekData("year");
   });
   
 
