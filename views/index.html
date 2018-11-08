@@ -76,7 +76,6 @@
       <button type="button" id="bar-btn" class="navbtn btn btn-info">Bar Chart</button>
       <button type="button" id="horizontal-bar-btn" class="navbtn btn btn-info">Horiz. Bar Chart</button>
       <button type="button" id="pie-btn" class="navbtn btn btn-info">Pie Chart</button> 
-      <!-- <button type="button" id="line-btn" class="navbtn btn btn-info">Line Chart</button> -->
       <button type="button" id="doughnut-btn" class="navbtn btn btn-info">Doughnut Chart</button>
       <button type="button" id="radar-btn" class="navbtn btn btn-info">Radar Chart</button> 
       <button type="button" id="polar-area-btn" class="navbtn btn btn-info">Polar Area Chart</button> 
@@ -88,9 +87,7 @@
     <div class="center">
     <div id="container-block">
     <h2 class="title-last">last week</h2>
-      <button type="button" id="bar-btn" class="navbtn btn btn-info">Bar Chart</button>
-      <button type="button" id="horizontal-bar-btn" class="navbtn btn btn-info">Horiz. Bar Chart</button>
-      <button type="button" id="line-btn" class="navbtn btn btn-info">Line Chart</button>
+      <button type="button" id="line-btn-week" class="navbtn btn btn-info">Line Chart</button>
     <canvas id="canvas2"></canvas>
     </div>
   </div>
@@ -99,7 +96,7 @@
   <div class="center">
     <div id="container-block">
     <h2 class="title-last">last month</h2>
-      <button type="button" id="line-btn" class="navbtn btn btn-info">Line Chart</button>
+      <button type="button" id="line-btn-month" class="navbtn btn btn-info">Line Chart</button>
     <canvas id="canvas3"></canvas>
     </div>
   </div>
@@ -108,7 +105,7 @@
   <div class="center">
     <div id="container-block">
     <h2 class="title-last">last year</h2>
-      <button type="button" id="line-btn" class="navbtn btn btn-info">Line Chart</button>
+      <button type="button" id="line-btn-year" class="navbtn btn btn-info">Line Chart</button>
     <canvas id="canvas4"></canvas>
     </div>
   </div>
@@ -182,7 +179,7 @@
 
           //config variable for the charts of last evaluation
           var configChartLastEvaluation = {
-            type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+            type:`${chart_type}`, // bar, horizontalBar, pie, line, doughnut, radar, polarArea
               data:{
                 labels:['Anger', 'Happiness', 'Sadness', 'Frustration', 'Empathy'],
                 datasets:[{
@@ -266,10 +263,6 @@
 
   $("#horizontal-bar-btn").click(function() {
     DisplayLastData('horizontalBar');
-  });
-
-  $("#line-btn").click(function() {
-    DisplayLastData('line');
   });
 
   $("#doughnut-btn").click(function() {
