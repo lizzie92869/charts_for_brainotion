@@ -18,7 +18,7 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-  <title>My Chart.js Chart</title>
+  <title>Emotional state charts</title>
 </head>
 <body>
 
@@ -159,6 +159,62 @@
 
 
 
+  $(document).on('click', getLastData);
+  // function to get the date from the API for the config of the chart
+  function getLastData(){
+    fetch('/api/emotional_states')
+    .then((res) => res.json())
+    .then((data) => {
+
+      // let data2 = [
+      //   {
+      //     id: "5be3ac914e69352ded704a9a",
+      //     date: "2018-11-03T07:00:00.000Z",
+      //     anger_score: "11",
+      //     happiness_score: "22",
+      //     sadness_score: "33",
+      //     frustration_score: "44",
+      //     empathy_score: "55"
+      //   },
+      //   {
+      //     id: "5be3ac914e69352ded704a9a",
+      //     date: "2018-12-03T07:00:00.000Z",
+      //     anger_score: "11",
+      //     happiness_score: "22",
+      //     sadness_score: "33",
+      //     frustration_score: "44",
+      //     empathy_score: "55"
+      //   },
+      //   {
+      //     id: "5be3ac914e69352ded704a9a",
+      //     date: "2018-10-03T07:00:00.000Z",
+      //     anger_score: "11",
+      //     happiness_score: "22",
+      //     sadness_score: "33",
+      //     frustration_score: "44",
+      //     empathy_score: "55"
+      //   },
+      // ];
+
+      const maxValueOfDate = data.map(function(e) { return e.date; }).sort().reverse()[0]
+
+      let sessionEvaluated = data.filter(function (el) {
+        return el.date == maxValueOfDate;
+      })
+
+      let lastAngerScore = sessionEvaluated[0].anger_score
+      let lastHappinessScore = sessionEvaluated[0].happiness_score
+      let lastSadnessScore = sessionEvaluated[0].sadness_score
+      let lastFrustrationScore = sessionEvaluated[0].frustration_score
+      let lastEmpathyScore = sessionEvaluated[0].empathy_score
+
+      console.log(maxValueOfDate, lastAngerScore, lastHappinessScore, lastSadnessScore, lastFrustrationScore, lastEmpathyScore);
+      debugger
+    });
+  }
+
+
+  //config variable for the chart
   var config = {
     type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data:{
