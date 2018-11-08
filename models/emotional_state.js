@@ -4,11 +4,11 @@ var mongoose = restful.mongoose;
 
 // Schema
 var emotionalStateSchema = new mongoose.Schema({
-    anger_score: Number,
-    hapiness_score: Number,
-    sadness_score: Number,
-    frustration_score: Number,
-    empathy_score: Number,
+    anger_score: String,
+    happiness_score: String,
+    sadness_score: String,
+    frustration_score: String,
+    empathy_score: String,
     date: Date
 });
 

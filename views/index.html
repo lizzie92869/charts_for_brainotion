@@ -30,7 +30,7 @@
 
     <div class="inline">
       <div class="emotion-name">Date</div>
-      <input class="input-date" type="text" id="datepicker">
+      <input class="input-date" type="text" required id="datepicker" name="date">
     </div>
 
     <div class="inline">
@@ -119,6 +119,37 @@
   $( function() {
     $( "#datepicker" ).datepicker();
   } );
+
+
+  $('form').on('submit', postEmotionalState);
+
+  function postEmotionalState(e){
+    e.preventDefault();
+    let date = e.target[0].value
+    let anger_score_value = e.target[1].value
+    let happiness_score_value = e.target[2].value
+    let sadness_score_value = e.target[3].value
+    let frustration_score_value = e.target[4].value
+    let empathy_score_value = e.target[5].value
+
+    $.ajax({
+      type: 'POST',
+      url: "http://localhost:3000/api/emotional_states",
+      data: {
+        date : date, 
+        anger_score : anger_score_value, 
+        happiness_score : happiness_score_value,
+        sadness_score : sadness_score_value,
+        frustration_score : frustration_score_value,
+        empathy_score : empathy_score_value, 
+      },
+      // dataType: "text",
+      success: function(resultData) { 
+        alert("Save Complete");
+        location.reload(); 
+      }
+    });
+  }
 
 
   // default styling for the chart
