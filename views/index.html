@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <!-- Add css -->
   <link rel="stylesheet" type="text/css" href="application.css">
-  <link rel="stylesheet" type="text/css" href="drop_menu.css">
   <!-- Add Jquery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <!-- Jquery for date picker -->
@@ -30,7 +29,7 @@
 
     <div class="inline">
       <div class="emotion-name">Date</div>
-      <input class="input-date" type="text" required id="datepicker" name="date">
+      <input class="input-date" type="text" required id="datepicker" name="date" autocomplete="off">
     </div>
 
     <div class="inline">
@@ -266,32 +265,32 @@
 
 
 
-  // Display the chart for last week
-  function DisplayLastWeekData(period){
+  // Display the chart for previous periods
+  function DisplayLastWeekMonthYearData(period, chartType){
     fetch('/api/emotional_states')
     .then((res) => res.json())
     .then((data) => {
 
       //defining an array of all the dates of last week
       let d = new Date();
-      let lastWeekSameDay;
+      let startDay;
       if (period === "week") {
-        lastWeekSameDay = new Date(d.setDate(d.getDate() - 7));
+        startDay = new Date(d.setDate(d.getDate() - 7));
       };
       if (period === "month") {
-        lastWeekSameDay = new Date(d.setDate(d.getDate() - 30));
+        startDay = new Date(d.setDate(d.getDate() - 30));
       };
       if (period === "year") {
-        lastWeekSameDay = new Date(d.setDate(d.getDate() - 365));
+        startDay = new Date(d.setDate(d.getDate() - 365));
       };
       let todayDate = new Date();
-      let dateRange = getDates(lastWeekSameDay, todayDate)
+      let dateRange = getDates(startDay, todayDate)
       //we can't keep the time as there wouldn't be any match in our db
       let dateRangeTruncated = []
       for (e of dateRange) {
         dateRangeTruncated.push(e.toString().slice(0, 15));
       }
-
+      // debugger
       
       // finding the objects with those dates
       let sessionsEvaluated = data.filter(function (el) {
@@ -304,8 +303,10 @@
       let sadnessArray = [];
       let frustrationArray = [];
       let empathyArray = [];
+      let dateArray = [];
 
       for(session of sessionsEvaluated){
+        dateArray.push(new Date(session.date).toString().slice(3,15));
         angerArray.push(session.anger_score);
         happinessArray.push(session.happiness_score);
         sadnessArray.push(session.sadness_score);
@@ -315,9 +316,9 @@
 
           //config variable for the charts of last week evaluations
           var configChartLastEvaluation = {
-            type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+            type: `${chartType}`, // bar, horizontalBar, pie, line, doughnut, radar, polarArea
               data:{
-                labels: dateRangeTruncated,
+                labels: dateArray,
                 datasets:[
 
                 {
@@ -387,14 +388,14 @@
   });
 
   $("#line-btn-week").click(function() {
-    DisplayLastWeekData("week");
+    DisplayLastWeekMonthYearData("week", "line");
   });
 
   $("#line-btn-month").click(function() {
-    DisplayLastWeekData("month");
+    DisplayLastWeekMonthYearData("month", "line");
   });
   $("#line-btn-year").click(function() {
-    DisplayLastWeekData("year");
+    DisplayLastWeekMonthYearData("year", "line");
   });
   
 
