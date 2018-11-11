@@ -99,8 +99,8 @@ $( function() {
                 maintainAspectRatio: false,
                 title:{
                   display:true,
-                  text:'Range of emotions',
-                  fontSize:25
+                  text:`${new Date(sessionEvaluated[0].date).toString().slice(0,15)}`,
+                  fontSize:18
                 },
                 legend:{
                   display:false,
@@ -197,7 +197,11 @@ $( function() {
       let empathyArray = [];
       let dateArray = [];
 
-      for(session of sessionsEvaluated){
+      let sessionsEvaluatedSorted = sessionsEvaluated.sort(function(a,b){
+        return new Date(a.date) - new Date(b.date);
+      })
+
+      for(session of sessionsEvaluatedSorted){
         dateArray.push(new Date(session.date).toString().slice(3,15));
         angerArray.push(session.anger_score);
         happinessArray.push(session.happiness_score);
