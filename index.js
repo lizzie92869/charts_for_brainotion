@@ -2,6 +2,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var emotionalStatesController = require('./controllers/emotional_states')
 
 // MongoDB
 mongoose.connect('mongodb://localhost/rest_test');
@@ -16,12 +17,11 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname +'/public'));
 app.use(express.static(__dirname + '/views'));
 
-// Routes
-app.use('/api', require('./routes/api'));
-app.get('/', function(req, res){
-    res.sendFile("index.html");
-});
+// fire controllers
+emotionalStatesController(app);
 
+// Routes API
+app.use('/api', require('./routes/api'));
 
 // Start server
 app.listen(3000);
