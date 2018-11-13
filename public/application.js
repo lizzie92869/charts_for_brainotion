@@ -166,14 +166,18 @@ $( function() {
       //defining an array of all the dates of last week
       let d = new Date();
       let startDay;
+      let timeScale;
       if (period === "week") {
         startDay = new Date(d.setDate(d.getDate() - 7));
+        timeScale = "day";
       };
       if (period === "month") {
         startDay = new Date(d.setDate(d.getDate() - 30));
+        timeScale = "week";
       };
       if (period === "year") {
         startDay = new Date(d.setDate(d.getDate() - 365));
+        timeScale = "month";
       };
       let todayDate = new Date();
       let dateRange = getDates(startDay, todayDate)
@@ -247,6 +251,14 @@ $( function() {
               },
             options:{
                 maintainAspectRatio: false,
+                scales: {
+                  xAxes: [{
+                    type: 'time',
+                    time: {
+                      unit: `${timeScale}`
+                    }
+                  }]
+                }
             }
             };
             
